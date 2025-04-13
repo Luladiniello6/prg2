@@ -1,6 +1,9 @@
+const db = require('../db/db')
+
 const profileController = {
     profile: function (req, res) {
-        res.render('profile'); 
+        const usuario = db.usuario
+        res.render('profile', {usuario});
     }
 }
 
