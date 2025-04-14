@@ -10,7 +10,8 @@
   --gray: #666666;
   --light-gray: #ebebeb;
   --green: #39b54a;
-  --base-font-family: 'Roboto', sans-serif
+  --white: #ffffff;
+  --base-font-family: 'Brawler'
 }
 
 
@@ -68,7 +69,7 @@ hr {
 /*====== Main Header ======*/
 .main-header {
   padding: 15px 0;
-  background-color: var(--yellow);
+  background-color: var(--white);
 }
 
 .main-header_home-link,
@@ -154,7 +155,7 @@ hr {
 
 /*====== Banner ======*/
 .banner {
-  background-image: url(/images/img-home-banner.jpg);
+  background-image: url(/images/scarlet_winter_apple_tv_banner.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
