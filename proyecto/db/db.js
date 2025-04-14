@@ -6,7 +6,7 @@ const database = {
             contrasenia: "123456",
             nacimiento: 2/12/2005,
             dni: 43455725,
-            foto: 'imagen',
+            foto: '/images/users/fotodeperfil.avif',
             productos: 10,
             seguidores: 1992,
             comentarios: 182
