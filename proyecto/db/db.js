@@ -37,6 +37,28 @@ const database = {
             foto: "/images/img-tv-samsung-smart.jpg",
             descripcion: "Descripcion"
         }
+    ],
+    comentarios: [
+        {
+            usuario: "user114",
+            comentario: "Me encanto este producto",
+            imagen: ""
+        },
+        {
+            usuario: "julianalvarez",
+            comentario: "Increible producto",
+            imagen: ""
+        },
+        {
+            usuario: "pablobarrios",
+            comentario: "El envio fue muy lento y llego roto",
+            imagen: ""
+        },
+        {
+            usuario: "rodrigo55",
+            comentario: "El mejor producto que compre!",
+            imagen: ""
+        }
     ]
 }
 
