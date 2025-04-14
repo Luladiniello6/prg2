@@ -1,7 +1,8 @@
-const productController = {
-    product: function (req, res) {
-        res.render('product'); 
-    }
-}
+const database = require('../db/db');
 
-module.exports = productController
+module.exports = {
+	product: (req, res) => {
+        const comentarios = database.comentarios;
+		res.render('product', { comentarios });
+	}
+};
