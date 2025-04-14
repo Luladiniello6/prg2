@@ -4,7 +4,7 @@ const database = {
             email: "digitalhouse@gmail.com",
             usuario: "User14",
             contrasenia: "123456",
-            nacimiento: 2/12/2005,
+            nacimiento: 2-12-2005,
             dni: 43455725,
             foto: '/images/users/fotodeperfil.avif',
             productos: 10,
