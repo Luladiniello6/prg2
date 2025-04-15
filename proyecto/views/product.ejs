@@ -24,58 +24,19 @@
 					</p>
 				</article>
 				<div class="col-12 col-lg-4">
-					<section class="comments">
-						<article>
-							<img src="<%= comentarios[0].imagen %>" alt="foto de <%= comentarios[0].usuario %>" />
-							<div class="data">
-								<p class="user">
-								  <strong><a href="profile.html"><%= comentarios[0].usuario %></a></strong>
-								</p>
-								<p><%= comentarios[0].comentario %></p>
-							  </div>
-							  
-						</article>
-						<article>
-							<img src="<%= comentarios[1].imagen %>" alt="foto de <%= comentarios[1].usuario %>" />
-							<div class="data">
-								<p class="user">
-								  <strong><a href="profile.html"><%= comentarios[1].usuario %></a></strong>
-								</p>
-								<p><%= comentarios[1].comentario %></p>
-							  </div>
-							  
-						</article>
-						<article>
-							<img src="<%= comentarios[2].imagen %>" alt="foto de <%= comentarios[2].usuario %>" />
-							<div class="data">
-								<p class="user">
-								  <strong><a href="profile.html"><%= comentarios[2].usuario %></a></strong>
-								</p>
-								<p><%= comentarios[2].comentario %></p>
-							  </div>
-							  
-						</article>
-						<article>
-							<img src="<%= comentarios[3].imagen %>" alt="foto de <%= comentarios[3].usuario %>" />
-							<div class="data">
-								<p class="user">
-								  <strong><a href="profile.html"><%= comentarios[3].usuario %></a></strong>
-								</p>
-								<p><%= comentarios[3].comentario %></p>
-							  </div>
-							  
-						</article>
-						<article>
-							<img src="<%= comentarios[4].imagen %>" alt="foto de <%= comentarios[4].usuario %>" />
-							<div class="data">
-								<p class="user">
-								  <strong><a href="profile.html"><%= comentarios[4].usuario %></a></strong>
-								</p>
-								<p><%= comentarios[4].comentario %></p>
-							  </div>
-							  
-						</article>
-					</section>
+						<section class="comments">
+							<% comentarios.forEach(function(comentario) { %>
+							  <article>
+								<img src="<%= comentario.imagen %>" alt="foto de <%= comentario.usuario %>" />
+								<div class="data">
+								  <p class="user">
+									<strong><a href="profile.html"><%= comentario.usuario %></a></strong>
+								  </p>
+								  <p><%= comentario.comentario %></p>
+								</div>
+							  </article>
+							<% }); %>
+						</section>
 					<form class="form" action="" method="POST">
 						<input class="form-input" type="text" value="" placeholder="Agregar comentario">
 						<button type="submit" class="buy-now-button">AGREGAR COMENTARIO</button>
