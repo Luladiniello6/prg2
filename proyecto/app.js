@@ -12,6 +12,7 @@ const productRouter = require('./routes/product');
 const profileRouter = require('./routes/profile');
 const registerRouter = require('./routes/register');
 const searchRouter = require('./routes/search-results');
+const session = require('express-session');
 var app = express();
 
 // view engine setup
@@ -23,6 +24,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:'nuestro mensaje secreto',
+  resave: false,
+  saveUninitialized: true,}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

@@ -1,0 +1,8 @@
+const path=require('path');
+
+module.exports = {
+  'config': path.resolve('prg2/proyecto/config', 'config.json'),
+  'models-path': path.resolve('prg2/proyecto/models'),
+  'seeders-path': path.resolve('prg2/proyecto/seeders'),
+  'migrations-path': path.resolve('prg2/proyecto/migrations'),
+};
