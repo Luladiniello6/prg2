@@ -3,6 +3,7 @@ USE prg2;
 
 -- Tabla de usuarios
 CREATE TABLE usuarios (
+	nombreUsuario VARCHAR(255) NOT NULL,
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     contrasenia VARCHAR(255) NOT NULL,
@@ -40,13 +41,13 @@ CREATE TABLE comentarios (
     FOREIGN KEY (usuarioId) REFERENCES usuarios(id)
 );
 
-INSERT INTO usuarios (email, contrasenia, nacimiento, dni, fotoPerfil)
+INSERT INTO usuarios (nombreUsuario, email, contrasenia, nacimiento, dni, fotoPerfil)
 VALUES
-('joaco@gmail.com', '123456', '2000-01-01', 12345678, '/images/users/user1.webp'),
-('felix@gmail.com', 'abcdef', '1995-05-12', 23456789, '/images/users/user2.png'),
-('julian@gmail.com', 'pass123', '1998-08-20', 34567890, '/images/users/user3.avif'),
-('elchango@gmail.com', 'qwerty', '2002-03-30', 45678901, '/images/users/user4.jpeg'),
-('digitalhouse@gmail.com', '123456', '2005-12-02', 43455725, '/images/users/fotodeperfil.avif');
+('joaco17', 'joaco@gmail.com', '123456', '2000-01-01', 12345678, '/images/users/user1.webp'),
+('felix93', 'felix@gmail.com', 'abcdef', '1995-05-12', 23456789, '/images/users/user2.png'),
+('julian32', 'julian@gmail.com', 'pass123', '1998-08-20', 34567890, '/images/users/user3.avif'),
+('elchango', 'elchango@gmail.com', 'qwerty', '2002-03-30', 45678901, '/images/users/user4.jpeg'),
+('digitalhouse', 'digitalhouse@gmail.com', '123456', '2005-12-02', 43455725, '/images/users/fotodeperfil.avif');
 
 INSERT INTO productos (usuarioId, nombreImagen, nombreProducto, descripcion)
 VALUES
