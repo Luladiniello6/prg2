@@ -1,4 +1,4 @@
-const database = require('../db/database');
+const database = require('../db/models');
 
 module.exports = {
 	profile: (req, res) => {
