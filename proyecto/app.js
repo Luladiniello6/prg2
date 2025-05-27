@@ -6,12 +6,12 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const loginRouter = require('./routes/login');
-const productaddRouter = require('./routes/product-add');
+//const loginRouter = require('./routes/login');
+//const productaddRouter = require('./routes/product-add');
 const productRouter = require('./routes/product');
-const profileRouter = require('./routes/profile');
-const registerRouter = require('./routes/register');
-const searchRouter = require('./routes/search-results');
+//const profileRouter = require('./routes/profile');
+
+//const searchRouter = require('./routes/search-results');
 const session = require('express-session');
 var app = express();
 
@@ -29,7 +29,7 @@ app.use(session( {secret: 'hola', resave: false, saveUninitialized: true}))
 
 app.use(function (req, res, next){
   if(req.session.usuarioLogueado != undefined){
-    res.locals.user = req.session.usuarioLogueado
+    res.locals.user = req.session.userLogged
   }
   return next()
 })
@@ -37,12 +37,11 @@ app.use(function (req, res, next){
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/login', loginRouter);
-app.use('/product-add', productaddRouter);
+//app.use('/login', loginRouter);
 app.use('/product', productRouter);
-app.use('/profile', profileRouter);
-app.use('/register', registerRouter);
-app.use('/search-results', searchRouter);
+//app.use('/profile', profileRouter);
+
+//app.use('/search-results', searchRouter);
 
 
 // catch 404 and forward to error handler
