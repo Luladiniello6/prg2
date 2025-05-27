@@ -1,19 +1,29 @@
 module.exports = (sequelize, DataTypes) => {
   const Comentario = sequelize.define('Comentario', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     productoId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     usuarioId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     texto: {
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
+      allowNull: true
     },
     createdAt: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
     },
     updatedAt: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
     },
     deletedAt: {
       type: DataTypes.DATE
@@ -25,8 +35,14 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Comentario.associate = function(models) {
-    Comentario.belongsTo(models.Producto, { foreignKey: 'productoId' });
-    Comentario.belongsTo(models.Usuario, { foreignKey: 'usuarioId' });
+    Comentario.belongsTo(models.Producto, {
+      foreignKey: 'productoId',
+      as: 'producto'
+    });
+    Comentario.belongsTo(models.Usuario, {
+      foreignKey: 'usuarioId',
+      as: 'usuario'
+    });
   };
 
   return Comentario;

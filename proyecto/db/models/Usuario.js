@@ -1,5 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Usuario = sequelize.define('Usuario', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     nombreUsuario: {
       type: DataTypes.STRING,
       allowNull: false
@@ -14,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     nacimiento: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: false
     },
     dni: {
@@ -22,13 +27,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     fotoPerfil: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: true
     },
     createdAt: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
     },
     updatedAt: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
     },
     deletedAt: {
       type: DataTypes.DATE
@@ -40,8 +48,15 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Usuario.associate = function(models) {
-    Usuario.hasMany(models.Producto, { foreignKey: 'usuarioId' });
-    Usuario.hasMany(models.Comentario, { foreignKey: 'usuarioId' });
+    Usuario.hasMany(models.Producto, {
+      foreignKey: 'usuarioId',
+      as: 'productos'
+    });
+
+    Usuario.hasMany(models.Comentario, {
+      foreignKey: 'usuarioId',
+      as: 'comentarios'
+    });
   };
 
   return Usuario;
