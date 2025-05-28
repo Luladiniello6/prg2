@@ -19,7 +19,7 @@ let userController = {
     let contrasenia = req.body.contrasenia;
     let nacimiento = req.body.nacimiento;
     let dni = req.body.dni;
-    let fotoPerfil = req.body.fotoPerfil || null;
+    let fotoPerfil = req.body.fotoPerfil;
 
     // Validación básica
     if (!nombreUsuario || !email || !contrasenia || !nacimiento || !dni) {
@@ -39,12 +39,12 @@ let userController = {
         }
 
         return user.create({
-          nombreUsuario,
-          email,
+          nombreUsuario:nombreUsuario,
+          email:email,
           contrasenia: passwordEncriptada,
-          nacimiento,
-          dni,
-          fotoPerfil
+          nacimiento:nacimiento,
+          dni:dni,
+          fotoPerfil:foto,
         });
       })
       .then(newUser => {
@@ -53,7 +53,7 @@ let userController = {
         }
       })
       .catch(err => {
-        console.log(err);
+          console.error('Error al registrar usuario:', err);
         return res.send('Error en el servidor al registrar el usuario.');
       });
   },
