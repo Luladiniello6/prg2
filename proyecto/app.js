@@ -28,11 +28,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session( {secret: 'hola', resave: false, saveUninitialized: true}))
 
 app.use(function (req, res, next){
-  if(req.session.usuarioLogueado != undefined){
-    res.locals.user = req.session.userLogged
+  if (req.session.userLogged != undefined) {
+    res.locals.user = req.session.userLogged;
   }
-  return next()
-})
+  next();
+});
+
 
 
 app.use('/', indexRouter);
