@@ -25,20 +25,20 @@
 					<section class="comments">
 						<h4>Comentarios (<%= producto.comentarios.length %>)</h4>
 
-						<% producto.comentarios.forEach(comentario => { %>
-							<article>
-								<div class="data">
-									<p class="user">
-										<strong>
-											<a href="/profile/<%= comentario.usuario.id %>">
-												<%= comentario.usuario.nombreUsuario %>
-											</a>
-										</strong>
-									</p>
-									<p><%= comentario.texto %></p>
-								</div>
-							</article>
-						<% }) %>
+			<% for (let i = 0; i < producto.comentarios.length; i++) { %>
+				<article>
+					<div class="data">
+						<p class="user">
+							<strong>
+								<a href="/profile/<%= producto.comentarios[i].usuario.id %>">
+									<%= producto.comentarios[i].usuario.nombreUsuario %>
+								</a>
+							</strong>
+						</p>
+						<p><%= producto.comentarios[i].texto %></p>
+					</div>
+				</article>
+			<% } %>
 					</section>
 
 					<form class="form" action="" method="POST">

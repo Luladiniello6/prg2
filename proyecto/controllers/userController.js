@@ -5,19 +5,22 @@ const user = db.Usuario;
 let userController = {
 
   register: function (req, res) {
-    if (req.session.userLogged) {
-      return res.redirect('/users/perfil');
-    } else {
-      return res.render('register');
-    }
-  },
+        if (req.session.userLogged) {
+            return res.redirect('/users/perfil');
+          } else {
+          return res.render('register');
+          }
+    },
+
 
   registerUser: function (req, res) {
-    let { nombreUsuario, email, contrasenia, nacimiento, dni } = req.body;
+    let nombreUsuario = req.body.nombreUsuario;
+    let email = req.body.email;
+    let contrasenia = req.body.contrasenia;
+    let nacimiento = req.body.nacimiento;
+    let dni = req.body.dni;
 
-    if (!Date.parse(nacimiento)) {
-      return res.send('La fecha de nacimiento no es válida.');
-    }
+    
 
     if (contrasenia.length < 3) {
       return res.send('La contraseña no puede tener menos de 3 caracteres');
@@ -25,28 +28,27 @@ let userController = {
 
     let passwordEncriptada = bcrypt.hashSync(contrasenia, 10);
 
-    user.findOne({ where: { email } })
-      .then(resultado => {
+    user.findOne({ where: { email: email } })
+      .then(function (resultado) {
         if (resultado) {
           return res.send('Ya existe un usuario con ese email');
         }
 
         return user.create({
-          nombreUsuario,
-          email,
+          nombreUsuario:nombreUsuario,
+          email:email,
           contrasenia: passwordEncriptada,
-          nacimiento,
-          dni: parseInt(dni)
+          nacimiento:nacimiento,
+          dni:dni,
         });
       })
-      .then(nuevoUsuario => {
-        if (nuevoUsuario) {
+      .then(nombreUsuario => {
+        if (nombreUsuario) {
           return res.redirect('/users/login');
         }
       })
       .catch(err => {
-        console.error('Error al registrar usuario:', err.message);
-        console.error(err);
+          console.error('Error al registrar usuario:', err);
         return res.send('Error en el servidor al registrar el usuario.');
       });
   },
@@ -59,10 +61,11 @@ let userController = {
   },
 
   loginProcess: function (req, res) {
-    let { email, contrasenia } = req.body;
+    let email = req.body.email;
+    let contrasenia = req.body.contrasenia;
     let recordarme = req.body.tyc;
 
-    user.findOne({ where: { email } })
+    user.findOne({ where: { email: email } })
       .then(usuario => {
         if (!usuario) {
           return res.send('El email no está registrado.');
@@ -75,7 +78,8 @@ let userController = {
         req.session.userLogged = {
           id: usuario.id,
           nombreUsuario: usuario.nombreUsuario,
-          email: usuario.email
+          email: usuario.email,
+          fotoPerfil: usuario.fotoPerfil
         };
 
         if (recordarme) {
@@ -84,20 +88,31 @@ let userController = {
 
         return res.redirect('/users/perfil');
       })
-      .catch(error => {
+      .catch(function (error) {
         console.log(error);
         return res.send('Error del servidor en login.');
       });
   },
 
-  perfil: function (req, res) {
-    if (!req.session.userLogged) {
-      return res.redirect('/users/login');
-    }
-    return res.render('profile', {
-      user: req.session.userLogged
-    });
-  },
+perfil: function (req, res) {
+  if (!req.session.userLogged) {
+    return res.redirect('/users/login');
+  }
+
+  const id = req.session.userLogged.id;
+
+  db.Usuario.findByPk(id, {
+    include: [
+      { model: db.Producto, as: 'productos' },
+      {
+        model: db.Comentario,
+        as: 'comentarios',
+        include: [{ model: db.Producto, as: 'producto' }]
+      }
+    ]
+  })
+},
+
 
   logout: function (req, res) {
     res.clearCookie('userEmail');

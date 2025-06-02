@@ -10,7 +10,7 @@ router.get('/login', userController.login);
 
 router.post('/login', userController.loginProcess);
 
-router.get('/perfil', userController.perfil);
+router.get('/perfil/:id', userController.perfil);
 
 router.get('/logout', userController.logout);
 
