@@ -2,6 +2,7 @@ const db = require('../db/models');
 const Op = db.Sequelize.Op;
 
 const productController = {
+	// Página general de productos
 	product: (req, res) => {
 		db.Comentario.findAll()
 			.then(comentarios => {
@@ -13,6 +14,7 @@ const productController = {
 			});
 	},
 
+	// Resultado de búsqueda
 	busqueda: (req, res) => {
 		let search = req.query.search;
 
@@ -43,6 +45,52 @@ const productController = {
 			.catch(error => {
 				console.error("Error al buscar productos:", error);
 				res.send("Error al realizar la búsqueda.");
+			});
+	},
+
+	// Perfil de usuario con productos
+	perfil: function (req, res) {
+		if (!req.session.userLogged) {
+			return res.redirect('/users/login');
+		}
+
+		db.Usuario.findByPk(req.session.userLogged.id, {
+			include: [{ model: db.Producto, as: 'productos' }]
+		})
+			.then(usuario => {
+				if (!usuario) return res.redirect('/users/login');
+
+				return res.render('profile', {
+					user: usuario,
+					productos: usuario.productos
+				});
+			})
+			.catch(error => {
+				console.log("Error al cargar perfil:", error);
+				return res.send("Error al cargar perfil");
+			});
+	},
+
+	// Detalle de un producto por ID
+	detalle: function (req, res) {
+		const id = req.params.id;
+
+		db.Producto.findByPk(id, {
+			include: [
+				{ model: db.Usuario, as: 'usuario' },
+				{ model: db.Comentario, as: 'comentarios' }
+			]
+		})
+			.then(producto => {
+				if (!producto) {
+					return res.send("Producto no encontrado.");
+				}
+
+				return res.render('product', { producto });
+			})
+			.catch(error => {
+				console.error("Error al cargar producto:", error);
+				return res.send("Error al cargar el producto.");
 			});
 	}
 };
