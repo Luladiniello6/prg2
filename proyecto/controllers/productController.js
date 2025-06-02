@@ -71,28 +71,31 @@ const productController = {
 			});
 	},
 
-	// Detalle de un producto por ID
 	detalle: function (req, res) {
-		const id = req.params.id;
+	const id = req.params.id;
 
-		db.Producto.findByPk(id, {
-			include: [
-				{ model: db.Usuario, as: 'usuario' },
-				{ model: db.Comentario, as: 'comentarios' }
-			]
-		})
-			.then(producto => {
-				if (!producto) {
-					return res.send("Producto no encontrado.");
-				}
+	db.Producto.findByPk(id, {
+		include: [
+			{ model: db.Usuario, as: 'usuario' },
+			{
+				model: db.Comentario,
+				as: 'comentarios',
+				include: [{ model: db.Usuario, as: 'usuario' }] 
+			}
+		]
+	})
+	.then(producto => {
+		if (!producto) {
+			return res.send("Producto no encontrado.");
+		}
 
-				return res.render('product', { producto });
-			})
-			.catch(error => {
-				console.error("Error al cargar producto:", error);
-				return res.send("Error al cargar el producto.");
-			});
-	}
-};
+		return res.render('product', { producto }); 
+	})
+	.catch(error => {
+		console.error("Error al cargar producto:", error);
+		return res.send("Error al cargar el producto.");
+	});
+}
+}
 
 module.exports = productController;

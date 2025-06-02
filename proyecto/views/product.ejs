@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
-<!-- Include Head -->
 <%- include('partials/head') %>
 <body>
-	<!-- Header -->
-	<%- include('partials/header') %>
-	<!-- /Header -->
+	<%- include('partials/headerLogueado') %>
 
-	<!-- product detail -->
 	<div class="container products-wrapper">
 		<div class="d-flex align-items-center">
-			<h2 class="products-title">Iphone 16</h2> 
+			<h2 class="products-title"><%= producto.nombreProducto %></h2> 
 			<p class="product-detail-description">
 				<a href="/product-add">Editar</a>
 			</p>
 		</div>
+
 		<div class="product-detail">
 			<div class="row">
 				<article class="col-12 col-lg-8 product-detail-info">
-					<img src="/images/products/Iphone16.png" alt="" class="product-detail-img">
+					<img src="/images/products/<%= producto.nombreImagen %>" alt="<%= producto.nombreProducto %>" class="product-detail-img">
 					<p class="product-detail-description">
-						El nuevo iPhone 16 combina rendimiento, diseño y eficiencia en un solo dispositivo. Equipado con el chip A17, cámara dual mejorada y una pantalla Super Retina aún más brillante, es la opción ideal para quienes buscan velocidad, elegancia y duración de batería. Todo lo que amás del iPhone, ahora mejorado.
+						<%= producto.descripcion %>
 					</p>
 				</article>
+
 				<div class="col-12 col-lg-4">
-						<section class="comments">
-							<% comentarios.forEach(function(comentario) { %>
-							  <article>
-								<img src="<%= comentario.imagen %>" alt="foto de <%= comentario.usuario %>" />
+					<section class="comments">
+						<h4>Comentarios (<%= producto.comentarios.length %>)</h4>
+
+						<% producto.comentarios.forEach(comentario => { %>
+							<article>
 								<div class="data">
-								  <p class="user">
-									<strong><a href="profile.html"><%= comentario.usuario %></a></strong>
-								  </p>
-								  <p><%= comentario.comentario %></p>
+									<p class="user">
+										<strong>
+											<a href="/profile/<%= comentario.usuario.id %>">
+												<%= comentario.usuario.nombreUsuario %>
+											</a>
+										</strong>
+									</p>
+									<p><%= comentario.texto %></p>
 								</div>
-							  </article>
-							<% }); %>
-						</section>
+							</article>
+						<% }) %>
+					</section>
+
 					<form class="form" action="" method="POST">
-						<input class="form-input" type="text" value="" placeholder="Agregar comentario">
+						<input class="form-input" type="text" name="comentario" placeholder="Agregar comentario">
 						<button type="submit" class="buy-now-button">AGREGAR COMENTARIO</button>
 					</form>
 					<hr>
@@ -46,11 +50,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- /product detail -->
 
-	<!-- footer -->
 	<%- include('partials/footer') %>
-	<!-- /footer -->
-
-</body>	
+</body>
 </html>
