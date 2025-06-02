@@ -47,8 +47,8 @@ let userController = {
           fotoPerfil:foto,
         });
       })
-      .then(newUser => {
-        if (newUser) {
+      .then(nombreUsuario => {
+        if (nombreUsuario) {
           return res.redirect('/users/login');
         }
       })
