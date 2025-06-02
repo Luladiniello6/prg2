@@ -4,13 +4,14 @@ const user = db.Usuario;
 
 let userController = {
 
-  // Renderiza el formulario de registro
-  register: (req, res) => {
-    if (req.session.userLogged) {
-      return res.redirect('/users/perfil');
-    }
-    return res.render('register');
-  },
+  register: function (req, res) {
+        if (req.session.userLogged) {
+            return res.redirect('/users/perfil');
+          } else {
+          return res.render('register');
+          }
+    },
+
 
   registerUser: function (req, res) {
     let nombreUsuario = req.body.nombreUsuario;
