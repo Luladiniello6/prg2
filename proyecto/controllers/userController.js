@@ -4,24 +4,22 @@ const user = db.Usuario;
 
 let userController = {
 
-  // Renderiza el formulario de registro
-  register: (req, res) => {
-    if (req.session.userLogged) {
-      return res.redirect('/users/perfil');
-    }
-    return res.render('register');
-  },
+  register: function (req, res) {
+        if (req.session.userLogged) {
+            return res.redirect('/users/perfil');
+          } else {
+          return res.render('register');
+          }
+    },
 
-  // Procesa el registro de un nuevo usuario
+
   registerUser: function (req, res) {
     let nombreUsuario = req.body.nombreUsuario;
     let email = req.body.email;
     let contrasenia = req.body.contrasenia;
     let nacimiento = req.body.nacimiento;
     let dni = req.body.dni;
-    let fotoPerfil = req.body.fotoPerfil;
 
-    // Validación básica
     if (!nombreUsuario || !email || !contrasenia || !nacimiento || !dni) {
       return res.send('Faltan datos obligatorios');
     }
@@ -44,7 +42,6 @@ let userController = {
           contrasenia: passwordEncriptada,
           nacimiento:nacimiento,
           dni:dni,
-          fotoPerfil:foto,
         });
       })
       .then(nombreUsuario => {
@@ -58,7 +55,6 @@ let userController = {
       });
   },
 
-  // Renderiza el formulario de login
   login: function (req, res) {
     if (req.session.userLogged) {
       return res.redirect('/users/perfil');
@@ -66,7 +62,6 @@ let userController = {
     return res.render('login');
   },
 
-  // Procesa el login
   loginProcess: function (req, res) {
     let email = req.body.email;
     let contrasenia = req.body.contrasenia;
@@ -101,7 +96,6 @@ let userController = {
       });
   },
 
-  // Muestra el perfil del usuario
   perfil: function (req, res) {
     if (!req.session.userLogged) {
       return res.redirect('/users/login');
@@ -111,7 +105,6 @@ let userController = {
     });
   },
 
-  // Cierra la sesión
   logout: function (req, res) {
     res.clearCookie('userEmail');
     req.session.destroy();

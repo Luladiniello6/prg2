@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    fotoPerfil: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
