@@ -1,56 +1,40 @@
-<!DOCTYPE html>
-<html lang="es">
-<!-- Include Head -->
-
+<!-- Header -->
 <%- include('partials/head') %>
+
 <body>
-	<!-- Header -->
-	<%- include('partials/header') %>
-	<!-- /Header -->
+		<%- include('partials/header') %>
 
-	<!-- Novedades -->
-	<div class="container products-wrapper">
-		<div class="row">
-			<div class="col-12">
-				<h2 class="products-title">Resultados de búsqueda</h2>
-			</div>
-			<!-- Show the "ultimos" products -->
-			<h2 class="col-12"> 
-				<div class="col-12 col-sm-6 col-lg-3">
-					<section class="product-box">
-						<a href="/product">
-							<figure class="product-box_image">
-								<img src="/images/products/Iphone16.png" alt="cafetera moulinex">
-							</figure>
-							<article class="product-box_data">
-								<h2>Iphone 16</h2>
-								<p>El nuevo iPhone 16 combina rendimiento, diseño y eficiencia en un solo dispositivo. Equipado con el chip A17, cámara dual mejorada y una pantalla Super Retina aún más brillante, es la opción ideal para quienes buscan velocidad, elegancia y duración de batería. Todo lo que amás del iPhone, ahora mejorado.</p>
-								<p>Comentarios: 12</p>
-							</article>
-						</a>
-					</section>
+	<!-- Resultados de búsqueda -->
+		<div class="container products-wrapper">
+			<div class="row">
+				<div class="col-12">
+					<h2 class="products-title">Resultados de búsqueda</h2>
 				</div>
-				<div class="col-12 col-sm-6 col-lg-3">
-					<section class="product-box">
-						<a href="/product">
+
+				<% for (let i = 0; i < productos.length; i++) { %>
+					<div class="col-12 col-sm-6 col-lg-3">
+						<section class="product-box">
+							<a href="/product/<%= productos[i].id %>">
 							<figure class="product-box_image">
-								<img src="/images/products/Iphone16pro.png" alt="cafetera moulinex">
+								<img src="/images/products/<%= productos[i].nombreImagen %>" alt="<%= productos[i].nombreProducto %>">
 							</figure>
 							<article class="product-box_data">
-								<h2>Iphone 16 Pro</h2>
-								<p>Diseñado para profesionales y amantes de la tecnología, el iPhone 16 Pro lleva la experiencia al máximo. Con su nuevo chip A18 Pro, cámara triple con capacidades de fotografía computacional, cuerpo de titanio y pantalla ProMotion de 120 Hz, es el iPhone más potente y refinado hasta ahora.
+								<h2><%= productos[i].nombreProducto %></h2>
+								<p><%= productos[i].descripcion %></p>
+								<p>
+								Subido por:
+								<a href="/users/perfil/<%= productos[i].usuario.id %>">
+									<%= productos[i].usuario.nombreUsuario %>
+								</a>
 								</p>
-								<p>Comentarios: 17</p>
 							</article>
-						</a>
-					</section>
+							</a>
+						</section>
+					</div>
+				<% } %>
 				</div>
-			</h2>
+		</div>
 
-
-	<!-- footer -->
+	<!-- Footer -->
 	<%- include('partials/footer') %>
-	<!-- /footer -->
 </body>
-
-</html>

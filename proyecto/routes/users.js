@@ -12,7 +12,7 @@ router.post('/login', userController.loginProcess);
 
 router.get('/perfil', userController.perfil); 
 
-router.get('/perfil/:id', userController.perfilAjeno); 
+router.get('/perfil/:id', userController.perfiles); 
 
 router.get('/logout', userController.logout);
 

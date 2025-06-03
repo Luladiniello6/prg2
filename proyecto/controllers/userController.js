@@ -45,7 +45,6 @@ const userController = {
       });
   },
 
-  // Muestra formulario de login
   login: function (req, res) {
     if (req.session.userLogged) {
       return res.redirect('/users/perfil');
@@ -53,7 +52,6 @@ const userController = {
     return res.render('login');
   },
 
-  // Procesa login
   loginProcess: function (req, res) {
     const { email, contrasenia, tyc } = req.body;
 
@@ -124,8 +122,7 @@ const userController = {
       });
   },
 
-  // Perfil ajeno (por ID en URL)
-  perfilAjeno: function (req, res) {
+  perfiles: function (req, res) {
     const id = req.params.id;
 
     db.Usuario.findByPk(id, {
@@ -158,7 +155,6 @@ const userController = {
       });
   },
 
-  // Logout
   logout: function (req, res) {
     res.clearCookie('userEmail');
     req.session.destroy();

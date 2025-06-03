@@ -13,38 +13,32 @@ const productController = {
       });
   },
 
-  busqueda: (req, res) => {
-    let search = req.query.search;
+  busqueda: function (req, res) {
+  const busqueda = req.query.search;
 
-    db.Producto.findAll({
-      where: {
-        nombreProducto: {
-          [Op.like]: `%${search}%`
-        }
-      },
-      include: [
-        { model: db.Usuario, as: "usuario" },
-        { model: db.Comentario, as: "comentarios" }
-      ]
-    })
-      .then(productos => {
-        if (productos.length === 0) {
-          res.render("search-results", {
-            productos: [],
-            mensaje: "No hay resultados para su criterio de búsqueda"
-          });
-        } else {
-          res.render("search-results", {
-            productos,
-            mensaje: null
-          });
-        }
-      })
-      .catch(error => {
-        console.error("Error al buscar productos:", error);
-        res.send("Error al realizar la búsqueda.");
-      });
-  },
+  db.Producto.findAll({
+    where: {
+      nombreProducto: {
+        [Op.like]: '%' + busqueda + '%'
+      }
+    },
+    include: [{
+      model: db.Usuario,
+      as: 'usuario'
+    }]
+  })
+  .then(function (productos) {
+    if (productos.length === 0) {
+      return res.send('No hay resultados para su criterio de búsqueda');
+    } else {
+      return res.render("search-results", { productos });
+    }
+  })
+  .catch(function (error) {
+    console.error("Error en búsqueda:", error);
+    return res.send("Error durante la búsqueda.");
+  });
+},
 
   perfil: function (req, res) {
     if (!req.session.userLogged) {

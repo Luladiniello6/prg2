@@ -10,4 +10,6 @@ router.post('/product-add', productController.addProduct);
 
 router.post('/comentario/:productoId', productController.guardarComentario);
 
+router.get('/', productController.busqueda);
+
 module.exports = router;
