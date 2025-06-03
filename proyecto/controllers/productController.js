@@ -2,7 +2,6 @@ const db = require('../db/models');
 const Op = db.Sequelize.Op;
 
 const productController = {
-	// Página general de productos
 	product: (req, res) => {
 		db.Comentario.findAll()
 			.then(comentarios => {
@@ -14,7 +13,6 @@ const productController = {
 			});
 	},
 
-	// Resultado de búsqueda
 	busqueda: (req, res) => {
 		let search = req.query.search;
 
@@ -48,7 +46,6 @@ const productController = {
 			});
 	},
 
-	// Perfil de usuario con productos
 	perfil: function (req, res) {
 		if (!req.session.userLogged) {
 			return res.redirect('/users/login');
@@ -95,7 +92,36 @@ const productController = {
 		console.error("Error al cargar producto:", error);
 		return res.send("Error al cargar el producto.");
 	});
+},
+	addForm: function(req, res){
+		res.render('product-add')
+	},
+
+	  addProduct: function (req, res) {
+    if (!req.session.userLogged) {
+      return res.redirect('/users/login');
+    }
+
+    const imagen = "/images/products/" + req.body.myfile;
+    const nombreProducto = req.body.name; 
+    const descripcion = req.body.description; 
+    const idUsuario = req.session.userLogged.id;
+
+    db.Producto.create({
+      usuarioId: idUsuario,
+      nombreImagen: imagen,
+      nombreProducto: nombreProducto,
+      descripcion: descripcion
+    })
+      .then(() => {
+        return res.redirect('/users/perfil');
+      })
+      .catch(error => {
+        console.error("Error al crear el producto:", error);
+        return res.send("Error al crear el producto");
+      });
+  }
 }
-}
+
 
 module.exports = productController;

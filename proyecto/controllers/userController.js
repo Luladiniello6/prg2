@@ -4,7 +4,6 @@ const user = db.Usuario;
 
 const userController = {
 
-  // Muestra formulario de registro
   register: function (req, res) {
     if (req.session.userLogged) {
       return res.redirect('/users/perfil');
@@ -12,7 +11,6 @@ const userController = {
     return res.render('register');
   },
 
-  // Procesa formulario de registro
   registerUser: function (req, res) {
     let { nombreUsuario, email, contrasenia, nacimiento, dni } = req.body;
 
@@ -89,7 +87,6 @@ const userController = {
       });
   },
 
-  // Perfil propio
   perfil: function (req, res) {
     if (!req.session.userLogged) {
       return res.redirect('/users/login');

@@ -31,6 +31,12 @@
 						<article class="product-box_data p-2">
 							<h2 class="h5"><%= productos[i].nombreProducto %></h2>
 							<p>Comentarios: <%= productos[i].comentarios.length %></p>
+							<p>Subido por: 
+								<a href="/users/perfil/<%= productos[i].usuario.id %>">
+									<%= productos[i].usuario.nombreUsuario %>
+								</a>
+							</p>
+
 						</article>
 					</a>
 				</section>
